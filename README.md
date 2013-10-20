@@ -8,3 +8,4 @@ _TODO:_
 
 * Maven parent module (type pom)
 * Child module for ejb2 (type ejb - could work with xdoclet)
+* Child module for ear to package the whole (type ear - optional ?)
