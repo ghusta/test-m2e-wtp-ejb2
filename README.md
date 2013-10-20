@@ -1,7 +1,7 @@
 test-m2e-wtp-ejb2
 =================
 
-Test for bug #419734 in Eclipse plugin [m2e-wtp](http://www.eclipse.org/m2e-wtp/)  
+Test for bug #419734 in Eclipse plugin [m2e-wtp](http://www.eclipse.org/m2e-wtp/) _([github sources](https://github.com/eclipse/m2e.wtp))_  
 => https://bugs.eclipse.org/bugs/show_bug.cgi?id=419734
 
 _TODO:_
