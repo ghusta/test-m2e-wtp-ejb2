@@ -1,0 +1,92 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>fr.husta.test.test-m2e-wtp-ejb2</groupId>
+		<artifactId>test-m2e-wtp-ejb2</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>test-m2e-wtp-ejb2-ejb</artifactId>
+	<packaging>ejb</packaging>
+
+	<name>test-m2e-wtp-ejb2 - EJB</name>
+
+	<properties>
+		<xdoclet.ejbdoclet.force>false</xdoclet.ejbdoclet.force>
+		<xdoclet.datasource>java:MyDS</xdoclet.datasource>
+		<xdoclet.datasourceMapping>Oracle9i</xdoclet.datasourceMapping>
+		<!-- Répertoire Sources générées pour XDoclet -->
+		<xdoclet.generated.sources.dir>${project.build.directory}/generated-sources/xdoclet</xdoclet.generated.sources.dir>
+	</properties>
+
+	<build>
+		<plugins>
+
+			<!-- PLUGIN XDOCLET -->
+			<plugin>
+				<!-- Execution XDoclet pour les EJB -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>xdoclet-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>xdoclet-generation-sources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>xdoclet</goal>
+						</goals>
+						<configuration>
+							<generatedSourcesDirectory>${xdoclet.generated.sources.dir}</generatedSourcesDirectory>
+							<tasks>
+								<ejbdoclet verbose="false" force="${xdoclet.ejbdoclet.force}"
+									ejbSpec="${ejb.version}" destDir="${xdoclet.generated.sources.dir}">
+									<fileset dir="${project.build.sourceDirectory}">
+										<include name="**/*Bean.java" />
+									</fileset>
+
+									<!-- Entity Beans -->
+									<entitypk destDir="${xdoclet.generated.sources.dir}" />
+									<!-- Voir utilisation des classes CMP dans ejb-jar.xml : enterprise-beans/entity/ejb-class -->
+									<entitycmp destDir="${xdoclet.generated.sources.dir}" />
+
+									<!-- Entity + Session Beans -->
+									<homeinterface destDir="${xdoclet.generated.sources.dir}" />
+									<localhomeinterface destDir="${xdoclet.generated.sources.dir}" />
+									<remoteinterface destDir="${xdoclet.generated.sources.dir}" />
+									<localinterface destDir="${xdoclet.generated.sources.dir}" />
+
+									<!-- kind="physical" pour lookup JNDI -->
+									<utilobject cacheHomes="true" includeGUID="false"
+										kind="physical" destDir="${xdoclet.generated.sources.dir}" />
+
+									<!-- Génération du fichier : ejb-jar.xml -->
+									<deploymentdescriptor displayname="${project.name}"
+										description="EJB Entity et Session de ${project.name}"
+										destDir="${project.build.outputDirectory}/META-INF" />
+
+									<!-- SPECIFIQUE JBOSS -->
+									<jboss version="4.0"
+										destDir="${project.build.outputDirectory}/META-INF"
+										datasource="${xdoclet.datasource}" datasourceMapping="${xdoclet.datasourceMapping}" />
+
+								</ejbdoclet>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>javax.ejb</groupId>
+			<artifactId>ejb-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+
+</project>

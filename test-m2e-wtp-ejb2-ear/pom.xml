@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>fr.husta.test.test-m2e-wtp-ejb2</groupId>
+		<artifactId>test-m2e-wtp-ejb2</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>test-m2e-wtp-ejb2-ear</artifactId>
+	<packaging>ear</packaging>
+
+	<name>test-m2e-wtp-ejb2 - EAR</name>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<displayName>${project.name}</displayName>
+					<description>${project.name}</description>
+					<generateApplicationXml>true</generateApplicationXml>
+
+					<fileNameMapping>no-version-for-ejb</fileNameMapping>
+
+					<modules>
+						<ejbModule>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>test-m2e-wtp-ejb2-ejb</artifactId>
+						</ejbModule>
+					</modules>
+
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>test-m2e-wtp-ejb2-ejb</artifactId>
+			<version>${project.version}</version>
+			<type>ejb</type>
+		</dependency>
+
+	</dependencies>
+
+</project>
